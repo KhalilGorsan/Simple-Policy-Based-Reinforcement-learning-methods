@@ -15,6 +15,7 @@ def hill_climbing(
 
     Params
     ======
+        policy (Policy): initiliazed random policy
         n_episodes (int): maximum number of training episodes
         max_t (int): maximum number of timesteps per episode
         gamma (float): discount rate
@@ -79,7 +80,7 @@ def steepest_ascent_hill_climbing(
 
     Params
     ======
-        policies (list): a list of  initiliazed random policies
+        policies (list): a list of initiliazed random policies
         n_episodes (int): maximum number of training episodes
         max_t (int): maximum number of timesteps per episode
         gamma (float): discount rate
