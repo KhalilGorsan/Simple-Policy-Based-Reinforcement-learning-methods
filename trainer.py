@@ -28,7 +28,7 @@ def main():
     fig = plt.figure()
     ax = fig.add_subplot(111)
 
-    variants = ["hill_climbing","steepest_ascent_hill_climbing"]
+    variants = ["hill_climbing", "steepest_ascent_hill_climbing"]
     for variant in variants:
         if variant == "steepest_ascent_hill_climbing":
             trainer = Trainer(population_size=8, variant=variant)

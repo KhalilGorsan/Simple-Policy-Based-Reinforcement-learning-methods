@@ -63,7 +63,6 @@ def hill_climbing(
             )
             policy.w = best_w
 
-
     return scores
 
 
@@ -142,6 +141,5 @@ def steepest_ascent_hill_climbing(
                 )
             )
             policy.w = best_w
-
 
     return scores
