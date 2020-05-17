@@ -9,10 +9,10 @@ env = gym.make("CartPole-v0")
 
 
 def hill_climbing(
-    policy, n_episodes=1000, max_t=1000, gamma=1.0, print_every=100, noise_scale=1e-2
+    policy, n_episodes=100, max_t=1000, gamma=1.0, print_every=100, noise_scale=1e-2
 ):
     """Implementation of hill climbing with adaptive noise scaling.
-        
+
     Params
     ======
         n_episodes (int): maximum number of training episodes
@@ -62,7 +62,7 @@ def hill_climbing(
                 )
             )
             policy.w = best_w
-            break
+
 
     return scores
 
@@ -70,7 +70,7 @@ def hill_climbing(
 def steepest_ascent_hill_climbing(
     policies,
     population_size=8,
-    n_episodes=1000,
+    n_episodes=100,
     max_t=1000,
     gamma=1.0,
     print_every=100,
@@ -142,6 +142,6 @@ def steepest_ascent_hill_climbing(
                 )
             )
             policy.w = best_w
-            break
+
 
     return scores
