@@ -1,3 +1,6 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
 from policy import Policy
 from policy_based_agents import hill_climbing, steepest_ascent_hill_climbing
 
@@ -21,8 +24,26 @@ class Trainer:
 
 
 def main():
-    trainer = Trainer()
-    trainer.train()
+    # plot the scores
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+
+    variants = ["hill_climbing","steepest_ascent_hill_climbing"]
+    for variant in variants:
+        if variant == "steepest_ascent_hill_climbing":
+            trainer = Trainer(population_size=8, variant=variant)
+            trainer.train()
+        else:
+            trainer = Trainer()
+            trainer.train()
+
+        ax.plot(np.arange(len(trainer.score)), trainer.score, label=variant)
+
+    plt.ylabel("Score")
+    plt.xlabel("Episode #")
+    ax.legend(loc="lower right", shadow=True, fontsize="small")
+    plt.savefig("hill_climbing_variants")
+    plt.show()
 
 
 if __name__ == "__main__":
