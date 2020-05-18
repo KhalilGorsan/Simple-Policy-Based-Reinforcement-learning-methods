@@ -1,8 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import gym
 
 from policy import Policy, Agent
-from policy_based_methods import hill_climbing, steepest_ascent_hill_climbing
+from policy_based_methods import hill_climbing, steepest_ascent_hill_climbing, cem
 
 
 class Trainer:
@@ -10,6 +11,7 @@ class Trainer:
         self.population_size = population_size
         self.policies = [Policy() for _ in range(population_size)]
         self.variant = variant
+        self.env= gym.make("CartPole-v0")
 
     def train(self):
         if self.variant == "hill_climbing":
@@ -21,6 +23,10 @@ class Trainer:
             self.score = steepest_ascent_hill_climbing(
                 policies=self.policies, population_size=self.population_size
             )
+        elif self.variant == "CEM":
+            agent = Agent(self.env)
+            # CEM needs a bigger population with 50 individuals for better convergence
+            self.score = cem(agent=agent)
 
 
 def main():
@@ -28,11 +34,12 @@ def main():
     fig = plt.figure()
     ax = fig.add_subplot(111)
 
-    variants = ["hill_climbing", "steepest_ascent_hill_climbing"]
+    variants = ["hill_climbing", "steepest_ascent_hill_climbing", "CEM"]
     for variant in variants:
-        if variant == "steepest_ascent_hill_climbing":
+        if variant == "steepest_ascent_hill_climbing" or variant == "CEM":
             trainer = Trainer(population_size=8, variant=variant)
             trainer.train()
+        # Hill climbing
         else:
             trainer = Trainer()
             trainer.train()
