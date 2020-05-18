@@ -1,8 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from policy import Policy
-from policy_based_agents import hill_climbing, steepest_ascent_hill_climbing
+from policy import Policy, Agent
+from policy_based_methods import hill_climbing, steepest_ascent_hill_climbing
 
 
 class Trainer:
