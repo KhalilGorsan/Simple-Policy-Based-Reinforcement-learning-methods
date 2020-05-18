@@ -1,8 +1,9 @@
 import numpy as np
 import gym
+import torch
 
 from collections import deque
-from policy import Policy
+from policy import Policy, Agent
 
 
 # CartPole-v0 Gym environment
