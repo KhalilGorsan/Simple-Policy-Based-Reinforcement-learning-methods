@@ -150,7 +150,7 @@ def steepest_ascent_hill_climbing(
 
 def cem(
     agent: Agent,
-    n_iterations=500,
+    n_iterations=100,
     max_t=1000,
     gamma=1.0,
     print_every=10,
@@ -204,9 +204,9 @@ def cem(
 
         if np.mean(scores_deque) >= 90.0:
             print(
-                "\nEnvironment solved in {:d} iterations!\tAverage Score: {:.2f}".format(
+                "Environment solved in {:d} iterations!\tAverage Score: {:.2f}".format(
                     i_iteration - 100, np.mean(scores_deque)
                 )
             )
-            break
+
     return scores
