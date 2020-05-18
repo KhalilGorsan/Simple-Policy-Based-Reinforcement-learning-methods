@@ -1,9 +1,11 @@
 import numpy as np
+import math
 
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 class Policy:
     def __init__(self, s_size=4, a_size=2):
@@ -29,7 +31,7 @@ class Agent(nn.Module):
         # state, hidden layer, action sizes
         self.s_size = env.observation_space.shape[0]
         self.h_size = h_size
-        self.a_size = env.action_space.shape[0]
+        self.a_size = env.action_space.n
         # define layers
         self.fc1 = nn.Linear(self.s_size, self.h_size)
         self.fc2 = nn.Linear(self.h_size, self.a_size)
@@ -57,7 +59,7 @@ class Agent(nn.Module):
 
     def forward(self, x):
         x = F.relu(self.fc1(x))
-        x = F.tanh(self.fc2(x))
+        x = F.softmax(self.fc2(x))
         return x.cpu().data
 
     def evaluate(self, weights, gamma=1.0, max_t=5000):
@@ -66,7 +68,7 @@ class Agent(nn.Module):
         state = self.env.reset()
         for t in range(max_t):
             state = torch.from_numpy(state).float().to(device)
-            action = self.forward(state)
+            action = self.forward(state).max(0)[1].item()
             state, reward, done, _ = self.env.step(action)
             episode_return += reward * math.pow(gamma, t)
             if done:
